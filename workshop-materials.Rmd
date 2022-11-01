@@ -1,0 +1,77 @@
+---
+title: "Coordinated Reference Systems with sf"
+subtitle: "Workshop: I2DS Tools for Data Science - Exercises"
+author: "Juan Brasdefer & Benedikt Korbach"
+date: " November 21st 2022"
+output: 
+  html_document:
+    toc: TRUE
+    theme: lumen
+    df_print: paged
+    number_sections: FALSE
+    highlight: tango
+    toc_depth: 2
+    toc_float: True
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(usethis)
+library(devtools)
+#devtools::install_github("hadley/emo")
+library(emo)
+```
+
+$~$
+
+Hello everyone `r emo::ji("wave")`, 
+
+we hope you have enjoyed our small presentation, refreshed your knowledge about Coordinate Reference Systems and got some insights on how geographic data they works in R and what potential data operations can be done with it.
+
+Ready to play around with sf and do some simple operations and create a nice map in the end (hopefully) `r emo::ji("heart_eyes")`?  
+
+
+*** 
+
+In this little exercise we would like you to 
+
+
+* **get a better feeling for CRS and the `sf`- package**  
+* **understand how to access and read CRS data in R**
+* **do simple data operations** 
+* **learn how to create cool and interactive maps based on geographic data**
+
+---
+# Theory
+
+Refreshing you memory from the presentation...
+
+<div align="center">
+<img src="http://www.geo.hunter.cuny.edu/~jochen/gtech201/lectures/lec6concepts/Datums/Basics%20of%20datums_files/image001.gif" width=700>
+</div>
+
+### Exercise (1) 
+**In your own words, why do we need a “Coordinate Reference System” (CRS)? ** 
+```{r}
+#
+#
+```
+# Setup
+
+The first step is to download the concerning packages and import the libraries for using `sf` and the *spatial data*.
+
+```{r}
+# install.packages("sf", "spData", "spDataLarge")
+# The Essentials
+library(sf)   # classes and functions for vector data
+library(tidyverse)     # for tidy data and ggplot2
+# Datasets
+library(rgdal) # dataset of city centers (points)
+library(spData) # load explanatory geographic data
+library(spDataLarge) # load larger geographic data 
+#(Intermediary Mapping)
+library(tmap) # to create nice and interactive maps
+library(jsonlite) # Convert R objects to/from JSON
+```
+
