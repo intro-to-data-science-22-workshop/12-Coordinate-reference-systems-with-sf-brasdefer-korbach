@@ -31,10 +31,8 @@ TEXTTEXTEXT
 In this little exercise we would like you to 
 
 
-* **get a better feeling for CRS and the `sf`- package**  
-* **understand how to access and read CRS data in R**
-* **do simple data operations** 
-* **learn how to create cool and interactive maps based on geographic data**
+* Bullet
+
 
 ---
 # Theory
@@ -45,30 +43,95 @@ Refreshing you memory from the presentation...
 <img src="http://www.geo.hunter.cuny.edu/~jochen/gtech201/lectures/lec6concepts/Datums/Basics%20of%20datums_files/image001.gif" width=700>
 </div>
 
-### Exercise (1) 
-**In your own words, why do we need a “Coordinate Reference System” (CRS)? ** 
-```{r}
-#
-#
-```
-# Setup
-
-The first step is to download the concerning packages and import the libraries for using `sf` and the *spatial data*.
+### Setup
 
 ```{r}
-#install.packages('sf')
-#install.packages('spData')
-#install.packages('spDataLarge')
-#install.packages('tmap')
-#install.packages('jsonlite')
-
-# The Essentials
 library(sf)   # classes and functions for vector data
-library(tidyverse)     # for tidy data and ggplot2
-# Datasets
-library(spData) # load explanatory geographic data
-#(Intermediary Mapping)
-library(tmap) # to create nice and interactive maps
-library(jsonlite) # Convert R objects to/from JSON
+library(tidyverse)  
+library(units)
 ```
+
+```{r}
+## build a temporary folder on disk
+temp <- tempfile()
+download.url <- "https://userpage.fu-berlin.de/soga/300/30100_data_sets/spatial/"
+zipfile <- "germany_districts.zip"
+## download the file
+download.file(paste0(download.url,zipfile),temp, mode="wb")
+## unzip the file(s)
+unzip(temp)
+## close file connection
+unlink(temp)
+```
+
+```{r}
+german_districts <- st_read("./germany_districts.shp")
+```
+
+### Inspecting sf objects
+
+```{r}
+class(german_districts)
+```
+The `german_districts` object is a data frame. Therefore, we can easily use tidyverse functionalities. 
+
+```{r}
+german_districts %>% 
+  head
+```
+
+```{r}
+plot(german_districts)
+```
+
+```{r}
+german_districts %>%
+   ggplot() +
+   geom_sf(color="grey")
+```
+
+
+```{r}
+german_districts_new_CRS <- st_transform(german_districts, 4087)
+
+german_districts_new_CRS %>% 
+  head
+```
+
+```{r}
+german_districts_new_CRS %>%
+   ggplot() +
+   geom_sf(color="grey")
+```
+```{r}
+plot(german_districts['area'])
+```
+
+```{r}
+german_districts %>%
+   ggplot() +
+   geom_sf(color="grey") +
+   geom_sf(aes(fill = area))
+```
+```{r}
+german_districts <- german_districts %>%
+  mutate(area = set_units(st_area(german_districts), km^2))
+```
+
+```{r}
+german_districts <- german_districts %>%
+  mutate(density = as.double(pop/area))
+
+german_districts
+```
+
+
+```{r}
+german_districts %>%
+   ggplot() +
+   geom_sf(color="grey") +
+   geom_sf(aes(fill = density))
+```
+
+
 
