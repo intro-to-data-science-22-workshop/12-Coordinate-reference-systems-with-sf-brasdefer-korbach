@@ -45,7 +45,7 @@ Refreshing you memory from the presentation...
 
 ### Setup and Data
 
-First, we need to download all relevant packages and the data we are going to use throughout the exercise. The data set contains the *spatial data* of all German districts.
+First, we need to load all relevant packages and import the data we are going to use throughout the exercise. The data set contains the *spatial data* of all German districts as well as some statistics.
 
 ```{r}
 library(sf) # package for simple features
@@ -54,54 +54,96 @@ library(units) # package to convert units
 ```
 
 ```{r}
-# build a temporary folder on disk
-temp <- tempfile()
-download.url <- "https://userpage.fu-berlin.de/soga/300/30100_data_sets/spatial/"
-zipfile <- "germany_districts.zip"
-# download the file
-download.file(paste0(download.url,zipfile),temp, mode="wb")
-# unzip the file(s)
-unzip(temp)
-# close file connection
-unlink(temp)
-```
-
-```{r}
-german_districts <- st_read("./germany_districts.shp")
+german_districts <- st_read("./Data/german_districts_clean.shp")
 ```
 
 ### Inspecting sf objects
-Let's take a first look at our data set.
+Let's take a first look at the class of the `german_districts` object.
+
+```{r}
+class(german_districts)
+```
+
+The `german_districts` data set is safed as a data frame. That's great! As a consequence, we can effortlessly use tidyverse methods to wrangle our data.
+
+Let's make use of this fact in the next exercise!
 
 ## Exercise (1) 
-**Report the first five observations in our data set. What information does the output contain? What is the class of `german_districts` ?** 
+**Report the first five observations in our data set. Describe what kind of information the output contains?** 
 
 ```{r}
 german_districts %>% 
   head(5)
 ```
 
+The output is structured as a simple feature collection gives us the following information:
+
+- The data frame contains 5 features across 4 variables, in this context referred to as fields. 
+- Simple features in form of polygons are safed in the `geometries` column.
+- The CRS/datum is the ETRS89 standard, a commonly used frame of reference for European geodata.
+
+### Working with simple features
+Let's use our spatial data to calculate the area for each district.
+
+## Exercise (2) 
+**Calculate the areas of all German districts in a new column within the data frame (using the tidyverse function mutate). Change the unit the square kilometers. Report the area of Berlin.** 
+
 ```{r}
-class(german_districts)
-```
-The `german_districts` object is a data frame. Therefore, we can easily use tidyverse methods to wrangle our data. Let's look at the first elements of the dataframe.
-
-
-
-### Exercise 1()) 
-**What information does the output contain? How is it structured?** 
-
-
-```{r}
-plot(german_districts)
+german_districts <- german_districts %>%
+  mutate(area = set_units(st_area(german_districts), km^2))
 ```
 
 ```{r}
 german_districts %>%
-   ggplot() +
-   geom_sf(color="grey")
+  filter(district == "Berlin") %>% 
+  select(area)
+```
+Berlin has an area of 893 km^2.
+
+As a second step, let's calculate the population density for each district using the `dplyr` package. 
+```{r}
+german_districts <- german_districts %>%
+  mutate(density = as.double(pop/area))
 ```
 
+Now, we are able to exploit one of the most powerful techniques in geographic data handling: map-making!
+
+```{r}
+district_points <- cbind(german_districts, st_coordinates(st_centroid(german_districts$geometry))) 
+
+district_points <- district_points %>% 
+  arrange(desc(density)) %>% 
+  select(district, density) %>% 
+  head(5)
+
+print(district_points)
+```
+
+## Exercise (3) 
+**Plot a map of the density of all German districts using the ggplot package.** 
+
+```{r}
+german_districts %>%
+  ggplot() +
+  geom_sf(aes(fill = density)) ##### discrete color coding?
+```
+
+```{r}
+german_districts %>%
+  ggplot() +
+  geom_sf(aes(fill = density)) +
+  #scale_fill_gradientn(colours = wesanderson::wes_palette("Zissou1", 100, type = "continuous")) +
+  geom_text(data= district_points,aes(x=X, y=Y, label=district), color = "white", check_overlap = FALSE)
+```
+
+We can clearly see the densely populated parts of Germany: The big German cities of Hamburg in the north, Berlin in the north-east and Munich in the south. Further, we
+Let's find out w
+
+```{r}
+german_districts %>% 
+  arrange(desc(density)) %>% 
+  head(5)
+```
 
 ```{r}
 german_districts_new_CRS <- st_transform(german_districts, 4087)
@@ -115,35 +157,10 @@ german_districts_new_CRS %>%
    ggplot() +
    geom_sf(color="grey")
 ```
-```{r}
-plot(german_districts['area'])
-```
-
-```{r}
-german_districts %>%
-   ggplot() +
-   geom_sf(color="grey") +
-   geom_sf(aes(fill = area))
-```
-```{r}
-german_districts <- german_districts %>%
-  mutate(area = set_units(st_area(german_districts), km^2))
-```
-
-```{r}
-german_districts <- german_districts %>%
-  mutate(density = as.double(pop/area))
-
-german_districts
-```
 
 
-```{r}
-german_districts %>%
-   ggplot() +
-   geom_sf(color="grey") +
-   geom_sf(aes(fill = density))
-```
+
+
 
 
 
