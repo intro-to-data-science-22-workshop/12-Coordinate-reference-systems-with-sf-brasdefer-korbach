@@ -42,6 +42,9 @@ In this exercise, you will
 ## Exercise 1: Measuring the world
 **After listening to the presentation, talk to your neighbor, briefly define the purpose of a CRS and discuss why it is important when dealing with spatial data.**
 
+Here you have space for notes:
+
+
 ---
 
 # Setup and Data 💻
@@ -73,10 +76,7 @@ Let's make use of this fact in the first exercise!
 **Use the dplyr::select() function to select the district column of the data frame and report the first five observations using the dplyr::head() and the print() function. What kind of information does the output contain? Does the output differ from what you expected?** 
 
 ```{r}
-german_districts %>% 
-  select(district) %>% 
-  head(5) %>% 
-  print
+## Your code
 ```
 The output is structured as a simple feature collection gives us the following information:
 
@@ -120,10 +120,7 @@ Now, its your turn to try the same. 💪
 **Use the st_set_crs() function to change the CRS of german_districts to WGS84/ Pseudo-Mercator (EPSG:3857) and store it as german_districts_mercator. By applying the st_crs() function, retrieve more information about the WGS84/ Pseudo-Mercator standard.**
 
 ```{r}
-german_districts_mercator <- german_districts %>% 
-  st_set_crs(3857) # WGS84; commonly used by organizations that provide spatial data for the entire globe or many countries; for example used by Google Earth
-
-st_crs(german_districts_mercator)
+## Your code
 ```
 
 From the output, we can see that this CRS also uses the WGS 84 geographical reference system that is then mapped onto a two-dimensional cartesian plane as a Pseudo-Mercator projection.
@@ -161,15 +158,9 @@ Let's use our spatial data to calculate the area of each German district.
 **Calculate the areas of all German districts and store them in a new column within the data frame using the dplyr::mutate() function. Change the unit to square kilometers using the units::set_units() function of the units package. Report the area of Berlin.** 
 
 ```{r}
-german_districts <- german_districts %>%
-  mutate(area = set_units(st_area(german_districts), km^2))
+## Your code
 ```
 
-```{r}
-german_districts %>%
-  filter(district == "Berlin") %>% 
-  select(area)
-```
 Berlin has an area of 893 square kilometers.
 
 Similar to the calculation of area, there are other functions in the `sf` package that you can use to do computations with simple features such as `st_length()`or `st_area()`.
@@ -211,10 +202,7 @@ Since `german_districts` is stored as a data frame, we can also utilize the ggpl
 Hint: To specify that you want to fill the districts according to the population density, set the "fill" attribute within the `aes()` command equal to the name of the population density column.
 
 ```{r}
-german_districts %>%
-  ggplot() +
-  geom_sf(aes(fill = density)) +  
-  scale_fill_viridis_c()
+## Your code
 ```
 
 We can clearly see the densely populated parts of Germany: The big German cities of Hamburg in the north, Berlin in the north-east and Munich in the south. 
