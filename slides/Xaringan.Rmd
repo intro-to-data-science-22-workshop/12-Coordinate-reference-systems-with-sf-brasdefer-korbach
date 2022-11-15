@@ -57,12 +57,16 @@ library(tidyverse)
 
 # Presentation Outline
 
-##1: Background
+
 
 
 <br>
 
-1.1 [Background](#intro1)
+.pull-left[
+
+##1: Background
+
+1.1 [Motivation](#intro1)
 
 1.2 [How to Measure the World](#)
 
@@ -70,14 +74,59 @@ library(tidyverse)
 
 1.4 [CRS Definition Styles](#)
 
-5. [null](#)
-
-6. [null](#)
+]
 
 
+.pull-right[
+
+
+##2: The sf Package
+
+2.1 [Intro to Simple Features](#)
+
+2.2 [sf Geometry](#)
+
+2.3 [sf objects in R](#dataframes)
+]
 
 
 
+
+
+
+
+
+
+---
+# 1.1: Why Measure the World?
+<br>
+
+**Motivation for Mapping, Projections...**
+- Working with spatial data directly
+
+
+- Visualising data with maps
+
+
+- Policy Makers like you!
+
+
+
+
+
+
+
+
+
+
+
+
+---
+# 1.2: How to Measure the World?
+
+<div align="center">
+<img src="geoids_four_examples.png" height=100>
+</div>
 
 
 
