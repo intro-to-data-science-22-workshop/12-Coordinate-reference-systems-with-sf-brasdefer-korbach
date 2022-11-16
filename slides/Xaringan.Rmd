@@ -79,9 +79,9 @@ library(tidyverse)
 .pull-right[
 ##2: sf Package
 
-2.1 [Intro to Simple Features](#)
+2.1 [Simple Features Overview](#disambiguation)
 
-2.2 [sf Geometry](#)
+2.2 [sf Geometry](#polygons)
 
 2.3 [sf objects in R](#dataframes)
 
@@ -135,7 +135,7 @@ name: section1
 
 - Visualising data with maps
 
-- Working with spatial data
+- Working with spatial data (there is so much information we don't see!)
 
 
 
@@ -273,10 +273,26 @@ name: section1
 
 
 
+---
+# 2.2 sf Geometry Visualization
 
 
 
+<img src="pics/geometrytypes.png" width="800px" height="500px" style = "position:absolute; left:200px; top:100px;"  >
 
+
+
+---
+# 2.3 The Simple Features Object in R
+
+###SF Objects in R...
+1. Are **stored in a DataFrame**
+2. **Each 'Attribute'** has its own column
+3. The Attribute **'Geometries'** is stored in `geom` column **as a list**
+
+
+
+<img src="pics/sftibble.png" width="800px" height="350px" style = "position:absolute; left:50px; bottom:60px;"  >
 
 
 
