@@ -90,7 +90,7 @@ name: section1
 
 ##Communicating Information
 
-
+--
 .pull-left[
 
 &lt;img src="pics/standardmap.png" width="500px" height="300px" style = "position:absolute; left:60px; top:220px;"&gt;
@@ -102,13 +102,13 @@ name: section1
 
 &lt;br&gt;
 
-**Motivation for Mapping, Projections...**
+**Motivation for Mapping, Measuring...**
 
-- Visualising data with maps
+- Using maps for visualization
 
+- Working with spatial data 
 
-
-- Working with spatial data (there is so much information we don't see!)
+- Unexpected insights
 
 
 
@@ -217,6 +217,17 @@ name: section1
 # 2.1 Simple Features Overview
 
 ## The sf Package
+
+.pull-right[
+
+&lt;img src="pics/sflogo.png" width="300px" height="300px" style = "position:absolute; right:150px; top:210px;" &gt;
+
+]
+
+
+
+--
+
 .pull-left[
 **Simple Features** is a formal standard that **describes how 'features' can be represented in computers and stored in databases**
 
@@ -232,11 +243,6 @@ name: section1
 
 ]
 
-.pull-right[
-
-&lt;img src="pics/sflogo.png" width="300px" height="300px" style = "position:absolute; right:150px; top:210px;" &gt;
-
-]
 
 
 ---
@@ -244,15 +250,19 @@ name: section1
 
 ##Basic Components of Shapes
 
+--
+
 &lt;img src="pics/geometrytypes.png" width="700px" height="430px" style = "position:absolute; left:250px; top:190px;"  &gt;
 
 ---
 # 2.3 Simple Features in R
 
-##Simple Features data frames
+##DataFrames of Simple Features
 1. All features are **stored in a data frame** with columns for the attributes (sf object)
 3. Each feature **'Geometry'** is saved **as a list** element (sfg object)
 3. The **'Geometries'** are put in a list-column called `geometry` or `geom` (sfc object)
+
+--
 
 &lt;img src="pics/sftibble.png" width="800px" height="350px" style = "position:absolute; left:60px; bottom:50px;"  &gt;
 
@@ -485,7 +495,7 @@ R&gt; plot(world)
 &lt;img src="pics/world_plot_1.png" width="600px" height="400px" style = "position:absolute; left:500px; top:255px;"  &gt;
 
 ---
-# 3.3 Map-Making
+# 3.3 Map-Making with sf
 
 ##plot() function (2)
 
@@ -502,7 +512,7 @@ R&gt; plot(world['continent'])
 &lt;img src="pics/world_continents.png" width="600px" height="400px" style = "position:absolute; left:500px; top:165px;"  &gt;
 
 ---
-# 3.3 Map-Making
+# 3.3 Map-Making with sf
 
 ##ggplot() function
 
