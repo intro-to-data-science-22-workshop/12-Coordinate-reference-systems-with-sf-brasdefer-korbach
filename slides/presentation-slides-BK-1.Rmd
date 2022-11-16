@@ -258,7 +258,7 @@ name: section1
 ---
 # 3.1 Working with CRS 
 
-###1: sf object output
+###sf object output
 ```{r}
 world %>% 
   select(iso_a2, name_long, continent, subregion, area_km2) %>% 
@@ -268,7 +268,7 @@ world %>%
 ---
 # 3.1 Working with CRS (Cont'd)
 
-###2: Retrieving the CRS
+###Retrieving the CRS
 
 .pull-left[
 **Well-Known_Text (WKT)**
@@ -296,7 +296,7 @@ st_crs(world)$proj4string
 # 3.1 Working with CRS (Cont'd)
 
 .pull-left[
-###3: Changing the CRS
+###Changing the CRS
 ```{r}
 world_mercator <- world %>% 
   st_set_crs(3857)
@@ -379,22 +379,57 @@ print(set_units((st_distance(de, au)), km))
 ---
 # 3.3 Map-Making
 
-### Plot() function
-```{r}
-plot(world['continent'])
+To create maps from sf objects, we can either 1) use `plot()` from the sf package or 2) `ggplot()` from the ggplot2 package.
+
+### plot() function (1)
+
+.pull-left[
+If we simply call the `plot()` function, a map   
+is created for each of the attributes.
+```{r, fig.show='hide'}
+plot(world)
 ```
+]
+
+<img src="pics/world_plot_1.png" width="600px" height="400px" style = "position:absolute; left:500px; top:220px;"  >
 
 ---
-# 3.3 Map-Making
+# 3.3 Map-Making (Cont'd)
 
-### Plot() function
-```{r}
-world_select <- world %>% select(iso_a2, continent, pop, lifeExp)
+### plot() function (2)
 
-plot(world_select)
+.pull-left[
+To only show the map corresponding to a  
+certain attribute, we can specify the  
+attribute inside the `plot()` function.
+```{r, fig.show='hide'}
+plot(world['continent'])
 ```
+]
 
+<img src="pics/world_continents.png" width="600px" height="400px" style = "position:absolute; left:500px; top:165px;"  >
 
+---
+# 3.3 Map-Making (Cont'd)
+
+### ggplot() function
+
+.pull-left[
+Since `world` is stored as an sf data frame,  
+we can also utilize the `ggplot()` function  
+to create maps. For this purpose, we use the  
+`geom_sf()` function to add the simple feature  
+layer to our plot.
+```{r, fig.show='hide'}
+world %>%
+  ggplot() +
+  geom_sf(aes(fill = lifeExp)) +  
+  scale_fill_viridis_c() +
+  ggtitle("Life expectancy")
+```
+]
+
+<img src="pics/world_life_exp.png" width="600px" height="400px" style = "position:absolute; left:500px; top:165px;"  >
 
 
 
