@@ -26,11 +26,11 @@ The goals of this workshop session are to
 
 ## Further resources
 
-- [Coordinate System Jargon: geoid, datum, projection by Rhumbline Studio on YouTube](https://www.youtube.com/watch?v=Z41Dt7_R180)
-- [Intro to Spatial Data by SOGA of Freie Universität Berlin](https://www.geo.fu-berlin.de/en/v/soga/Introduction-to-R/Spatial-Data/sf/index.html). 
+- [Intro to Spatial Data by SOGA of Freie Universität Berlin](https://www.geo.fu-berlin.de/en/v/soga/Introduction-to-R/Spatial-Data/sf/index.html)
 - [Simple Features in R](https://cran.r-project.org/web/packages/sf/vignettes/sf1.html)
 - [Geocomputation with R](https://geocompr.robinlovelace.net/spatial-class.html#geographic-coordinate-systems)
 - [sf cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/sf.pdf)
+- [Coordinate System Jargon: geoid, datum, projection by Rhumbline Studio on YouTube](https://www.youtube.com/watch?v=Z41Dt7_R180)
 
 ## License
 
