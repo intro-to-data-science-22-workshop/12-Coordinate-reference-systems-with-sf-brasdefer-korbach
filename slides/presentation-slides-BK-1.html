@@ -41,65 +41,43 @@ class: center, middle, inverse, title-slide
 
 
 
-
-
-
-
-
 # Presentation Outline
-
-
-
-
-&lt;br&gt;
-
 .pull-left[
-.pull-left[
-##1: Concepts
+##1: Concepts &amp; Context
 
+1.1 Why Measure the World?
 
-1.1 [Why Measure the World?](#)  
+1.2 How to Measure the World?
 
-1.2 [How to Measure the World?](#)
+1.3 Coordinate Reference Systems
 
-1.3 [CRS definition](#)
+##3: sf Functions &amp; Operations
 
+3.1 Working with CRSs
+
+3.2 Computations with sf
+
+3.3 Map-Making with sf
 
 ]
 
 .pull-right[
-##2: sf Package
+##2: The sf Package
 
-2.1 [Simple Features Overview](#)
+2.1 Simple Features Overview
 
-2.2 [sf Geometry](#)
+2.2 sf Geometry Visualization
 
-2.3 [sf objects in R](#)
+2.3 Simple Features in R
+
+##4: Exercise Session
 
 ]
-
-]
-
-.pull-right[
-
-
-##3: Functions &amp; Operations
-
-3.1 [Working with CRS](#)
-
-3.2 [Computations with sf](#)
-
-3.3 [Applications 1](#)
-]
-
-
-
-
 ---
 class: inverse, center, middle
 name: section1
 
-# 1: Concepts and Context
+# 1: Concepts &amp; Context
 
 &lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px style="width:1000px; margin:auto;"/&gt;&lt;/html&gt;
 
@@ -140,13 +118,13 @@ name: section1
 
 ##Approximating the Earth
 
-&lt;img src="pics/earthtoplane.png" width="800px" height="400px" style = "position:absolute; right:220px; top:160px;"&gt;
+&lt;img src="pics/earthtoplane.png" width="800px" height="400px" style = "position:absolute; right:220px; top:200px;"&gt;
 
 
 ---
 # 1.3 Coordinate Reference Systems
 
-##Coordinate Reference Systems (CRS)
+##Introduction to CRSs
 
 - A CRS **specifies** which **location on earth** the spatial elements or coordinates of the data refer to
 - CRSs are either **geographic** or **projected**
@@ -158,8 +136,8 @@ name: section1
 | Units | Degrees | Linear unit (e.g. metres) |
 
 ##Projected Coordinate Systems
-- Based on a geographic CRS and **projects a 3D surface** onto a flat surface
-- Datum is transferred to a planar (cartesian) coordinate system using **conical**, **cylindrical** or **planar** projections
+- A PCS is based on a geographic CRS and **projects a 3D surface** onto a flat surface
+- The **datum** is transferred to a planar (cartesian) coordinate system using **conical**, **cylindrical** or **planar** **projections**
 - This process **distorts some properties of the earth’s surface** (e.g. area, direction, distance, and shape)
 
 ---
@@ -171,7 +149,7 @@ name: section1
 &lt;img src="pics/cylconplan.png" width="500px" height="300px" style = "position:absolute; right:670px; top:200px;" &gt;
 
 .pull-right[
-##From GRS to CRS                     
+##From GCS to PCS                     
 ]
 
 &lt;img src="pics/GCSvsPCS.png" width="500px" height="300px" style = "position:absolute; right:70px; top:200px;" &gt;
@@ -184,11 +162,11 @@ name: section1
 
 ##CRS Components
 A CRS comprises of
-- An Earth ellipsoid
-- A datum
-- A map projection (expect for geographic coordinate systems)
-- An origin point and
-- A unit of measurement
+- an earth ellipsoid
+- a datum
+- a map projection (expect for geographic coordinate systems)
+- an origin point and
+- a unit of measurement
 
 ##Standards for CRSs
 - EPSG
@@ -231,14 +209,14 @@ R&gt; st_crs(world)
 class: inverse, center, middle
 name: section1
 
-# 2: The Simple Features Package
+# 2: The sf Package
 
 &lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px style="width:1000px; margin:auto;"/&gt;&lt;/html&gt;
 
 ---
 # 2.1 Simple Features Overview
 
-## The sf package
+## The sf Package
 .pull-left[
 **Simple Features** is a formal standard that **describes how 'features' can be represented in computers and stored in databases**
 
@@ -256,7 +234,7 @@ name: section1
 
 .pull-right[
 
-&lt;img src="pics/sflogo.png" width="300px" height="300px" style = "position:absolute; right:150px; top:190px;" &gt;
+&lt;img src="pics/sflogo.png" width="300px" height="300px" style = "position:absolute; right:150px; top:210px;" &gt;
 
 ]
 
@@ -269,14 +247,14 @@ name: section1
 &lt;img src="pics/geometrytypes.png" width="700px" height="430px" style = "position:absolute; left:250px; top:190px;"  &gt;
 
 ---
-# 2.3 The Simple Features Object in R
+# 2.3 Simple Features in R
 
 ##Simple Features data frames
-1. All features are **stored in a DataFrame** with columns for the attributes (sf object)
+1. All features are **stored in a data frame** with columns for the attributes (sf object)
 3. Each feature **'Geometry'** is saved **as a list** element (sfg object)
 3. The **'Geometries'** are put in a list-column called `geometry` or `geom` (sfc object)
 
-&lt;img src="pics/sftibble.png" width="800px" height="350px" style = "position:absolute; left:50px; bottom:20px;"  &gt;
+&lt;img src="pics/sftibble.png" width="800px" height="350px" style = "position:absolute; left:60px; bottom:50px;"  &gt;
 
 
 ---
@@ -289,40 +267,44 @@ name: section1
 
 
 ---
-# 3.1 Working with CRS 
+# 3.1 Working with CRSs 
 
-##sf object output
+##sf Output
+
+If we simply print an `sf` object, the output shows some meta-information about the geometries  
+and the CRS as well as the data frame of simple features.
+
 
 ```r
 R&gt; world %&gt;% 
 +   select(iso_a2, name_long, continent, subregion, area_km2) %&gt;% 
-+   head(5)
++   head(3)
 ```
 
 ```
-## Simple feature collection with 5 features and 5 fields
+## Simple feature collection with 3 features and 5 fields
 ## Geometry type: MULTIPOLYGON
 ## Dimension:     XY
-## Bounding box:  xmin: -180 ymin: -18.28799 xmax: 180 ymax: 83.23324
+## Bounding box:  xmin: -180 ymin: -18.28799 xmax: 180 ymax: 27.65643
 ## Geodetic CRS:  WGS 84
-## # A tibble: 5 × 6
-##   iso_a2 name_long      continent     subreg…¹ area_…²                      geom
-##   &lt;chr&gt;  &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;      &lt;dbl&gt;        &lt;MULTIPOLYGON [°]&gt;
-## 1 FJ     Fiji           Oceania       Melanes…  1.93e4 (((-180 -16.55522, -179.…
-## 2 TZ     Tanzania       Africa        Eastern…  9.33e5 (((33.90371 -0.95, 31.86…
-## 3 EH     Western Sahara Africa        Norther…  9.63e4 (((-8.66559 27.65643, -8…
-## 4 CA     Canada         North America Norther…  1.00e7 (((-132.71 54.04001, -13…
-## 5 US     United States  North America Norther…  9.51e6 (((-171.7317 63.78252, -…
-## # … with abbreviated variable names ¹​subregion, ²​area_km2
+## # A tibble: 3 × 6
+##   iso_a2 name_long      continent subregion    area_…¹                      geom
+##   &lt;chr&gt;  &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;        &lt;MULTIPOLYGON [°]&gt;
+## 1 FJ     Fiji           Oceania   Melanesia     19290. (((-180 -16.55522, -179.…
+## 2 TZ     Tanzania       Africa    Eastern Afr… 932746. (((33.90371 -0.95, 31.86…
+## 3 EH     Western Sahara Africa    Northern Af…  96271. (((-8.66559 27.65643, -8…
+## # … with abbreviated variable name ¹​area_km2
 ```
 
 ---
-# 3.1 Working with CRS (Cont'd)
+# 3.1 Working with CRSs
 
 ##Retrieving the CRS
 
+By using the `st_crs()` function, we can retrieve the CRS and its specifications in different formats.
+
 .pull-left[
-**Well-Known_Text (WKT)**
+**Well-Known-Text (WKT)**
 
 
 ```r
@@ -378,10 +360,13 @@ R&gt; st_crs(world)$proj4string
 ]
 
 ---
-# 3.1 Working with CRS (Cont'd)
+# 3.1 Working with CRSs
+
+##Changing the CRS
+We can change the CRS by applying the `st_set_crs()` function.
 
 .pull-left[
-##Changing the CRS
+**Code: New CRS**
 
 ```r
 R&gt; world_mercator &lt;- world %&gt;% 
@@ -395,17 +380,21 @@ R&gt; st_crs(world_mercator)$srid
 ```
 ]
 
+
 .pull-right[
-##WGS84 Pseudo Mercator
-&lt;img src="presentation-slides-BK-1_files/figure-html/unnamed-chunk-8-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+**Plot: WGS84 Pseudo-Mercator Projection**
+&lt;img src="pics/world_mercator.png" width="230" style = "position:absolute; left:635px; top:270px;"  &gt;
 ]
 
 
 ---
-# 3.1 Working with CRS (Cont'd)
+# 3.1 Working with CRSs
+
+##Changing the CRS
+We can change the CRS by applying the `st_set_crs()` function.
 
 .pull-left[
-##Original CRS
+**Code: Original CRS**
 
 ```r
 R&gt; st_crs(world)$srid
@@ -416,18 +405,19 @@ R&gt; st_crs(world)$srid
 ```
 ]
 
+
 .pull-right[
-##WGS84 - World Geodetic System 1984, used in GPS
-&lt;img src="presentation-slides-BK-1_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+**Plot: WGS84 - World Geodetic System 1984, used in GPS**
+&lt;img src="pics/world_gps.png" width="500" style = "position:absolute; left:635px; top:270px;"  &gt;
 ]
 
 ---
 # 3.2 Computations with sf
 
-sf includes functions that save us difficult computations:  `st_area()` and  `st_distance()` are some examples.
+##Doing Measurements
 
 .pull-left[
-##Area
+**Area**
 
 By using the `st_area()` function, we can calculate the area of a country directly from the sf and the specified CRS. 
 
@@ -451,19 +441,19 @@ R&gt; print(germany_area)
 ]
 
 .pull-right[
-##Distance
+**Distance**
 
-The `sf_distance()`function lets us calculate the distance between two features. In this example, we determine the distance between the center of Germany and Australia by using the `st_centroid()` function.
+The `sf_distance()` function lets us calculate the distance between two features. In this example, we determine the distance between the center of Germany and the center of Australia by using the `st_centroid()` function.
 
 ```r
 R&gt; de &lt;- world %&gt;% 
-+   filter(iso_a2 == "DE") %&gt;% 
-+   st_centroid()
-R&gt; 
++   filter(iso_a2 == "DE") %&gt;% st_centroid()
 R&gt; au &lt;- world %&gt;% 
-+   filter(iso_a2 == "AU") %&gt;% 
-+   st_centroid()
-R&gt; 
++   filter(iso_a2 == "AU") %&gt;% st_centroid()
+```
+
+
+```r
 R&gt; print(set_units((st_distance(de, au)), km))
 ```
 
@@ -472,12 +462,14 @@ R&gt; print(set_units((st_distance(de, au)), km))
 ##          [,1]
 ## [1,] 14556.93
 ```
+
 ]
 
 ---
-# 3.3 Map-Making
+# 3.3 Map-Making with sf
 
-To create maps from sf objects, we can either 1) use `plot()` from the sf package or 2) `ggplot()` from the ggplot2 package.
+To create maps from sf objects, we can either 1) use `plot()` from the sf package or  
+2) `ggplot()` from the ggplot2 package.
 
 ##plot() function (1)
 
@@ -490,10 +482,10 @@ R&gt; plot(world)
 ```
 ]
 
-&lt;img src="pics/world_plot_1.png" width="600px" height="400px" style = "position:absolute; left:500px; top:220px;"  &gt;
+&lt;img src="pics/world_plot_1.png" width="600px" height="400px" style = "position:absolute; left:500px; top:255px;"  &gt;
 
 ---
-# 3.3 Map-Making (Cont'd)
+# 3.3 Map-Making
 
 ##plot() function (2)
 
@@ -510,7 +502,7 @@ R&gt; plot(world['continent'])
 &lt;img src="pics/world_continents.png" width="600px" height="400px" style = "position:absolute; left:500px; top:165px;"  &gt;
 
 ---
-# 3.3 Map-Making (Cont'd)
+# 3.3 Map-Making
 
 ##ggplot() function
 
@@ -532,7 +524,15 @@ R&gt; world %&gt;%
 
 &lt;img src="pics/world_life_exp.png" width="600px" height="400px" style = "position:absolute; left:500px; top:165px;"  &gt;
 
+---
+class: inverse, center, middle
+name: section1
 
+# 4: Exercise Session
+
+Thank you so much for listening! If you want to dive deeper into the sf package and Coordinate Reference Systems, please have a look at the linked sources on our Github repository [Github repository](https://github.com/intro-to-data-science-22-workshop/12-Coordinate-reference-systems-with-sf-brasdefer-korbach/tree/main/slides).
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px style="width:1000px; margin:auto;"/&gt;&lt;/html&gt;
 
 
 
