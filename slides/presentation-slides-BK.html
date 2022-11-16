@@ -282,7 +282,7 @@ name: section1
 ---
 # 3.1 Working with CRS
 
-###sf object output
+###sf object outbout
 
 ```r
 R&gt; world %&gt;% 
@@ -307,25 +307,115 @@ R&gt; world %&gt;%
 ## # … with abbreviated variable names ¹​subregion, ²​area_km2
 ```
 
-
-
 ---
-# Grammar of XPath
+# 3.1 Working with CRS
 
-### Navigational operators `"."`and `".."`
-
-- `"."` accesses elements on the same level ("self axis"), which is useful when working with predicates (see later!).
-- `".."` accesses elements at a higher hierarchical level.
+###Retrieving and Setting the CRS
 
 
 ```r
-R&gt; #html_elements(parsed_doc, xpath = "//title/..")
+R&gt; st_crs(world)
+```
+
+```
+## Coordinate Reference System:
+##   User input: EPSG:4326 
+##   wkt:
+## GEOGCRS["WGS 84",
+##     DATUM["World Geodetic System 1984",
+##         ELLIPSOID["WGS 84",6378137,298.257223563,
+##             LENGTHUNIT["metre",1]]],
+##     PRIMEM["Greenwich",0,
+##         ANGLEUNIT["degree",0.0174532925199433]],
+##     CS[ellipsoidal,2],
+##         AXIS["geodetic latitude (Lat)",north,
+##             ORDER[1],
+##             ANGLEUNIT["degree",0.0174532925199433]],
+##         AXIS["geodetic longitude (Lon)",east,
+##             ORDER[2],
+##             ANGLEUNIT["degree",0.0174532925199433]],
+##     USAGE[
+##         SCOPE["Horizontal component of 3D system."],
+##         AREA["World."],
+##         BBOX[-90,-180,90,180]],
+##     ID["EPSG",4326]]
+```
+
+```r
+R&gt; world_equidistant &lt;- world %&gt;% 
++   st_set_crs(4087)
+```
+
+```
+## Warning: st_crs&lt;- : replacing crs does not reproject data; use st_transform for
+## that
+```
+
+```r
+R&gt; st_crs(world_equidistant)
+```
+
+```
+## Coordinate Reference System:
+##   User input: EPSG:4087 
+##   wkt:
+## PROJCRS["WGS 84 / World Equidistant Cylindrical",
+##     BASEGEOGCRS["WGS 84",
+##         ENSEMBLE["World Geodetic System 1984 ensemble",
+##             MEMBER["World Geodetic System 1984 (Transit)"],
+##             MEMBER["World Geodetic System 1984 (G730)"],
+##             MEMBER["World Geodetic System 1984 (G873)"],
+##             MEMBER["World Geodetic System 1984 (G1150)"],
+##             MEMBER["World Geodetic System 1984 (G1674)"],
+##             MEMBER["World Geodetic System 1984 (G1762)"],
+##             MEMBER["World Geodetic System 1984 (G2139)"],
+##             ELLIPSOID["WGS 84",6378137,298.257223563,
+##                 LENGTHUNIT["metre",1]],
+##             ENSEMBLEACCURACY[2.0]],
+##         PRIMEM["Greenwich",0,
+##             ANGLEUNIT["degree",0.0174532925199433]],
+##         ID["EPSG",4326]],
+##     CONVERSION["World Equidistant Cylindrical",
+##         METHOD["Equidistant Cylindrical",
+##             ID["EPSG",1028]],
+##         PARAMETER["Latitude of 1st standard parallel",0,
+##             ANGLEUNIT["degree",0.0174532925199433],
+##             ID["EPSG",8823]],
+##         PARAMETER["Longitude of natural origin",0,
+##             ANGLEUNIT["degree",0.0174532925199433],
+##             ID["EPSG",8802]],
+##         PARAMETER["False easting",0,
+##             LENGTHUNIT["metre",1],
+##             ID["EPSG",8806]],
+##         PARAMETER["False northing",0,
+##             LENGTHUNIT["metre",1],
+##             ID["EPSG",8807]]],
+##     CS[Cartesian,2],
+##         AXIS["easting (X)",east,
+##             ORDER[1],
+##             LENGTHUNIT["metre",1]],
+##         AXIS["northing (Y)",north,
+##             ORDER[2],
+##             LENGTHUNIT["metre",1]],
+##     USAGE[
+##         SCOPE["Graticule coordinates expressed in simple Cartesian form."],
+##         AREA["World."],
+##         BBOX[-90,-180,90,180]],
+##     ID["EPSG",4087]]
 ```
 
 
 ```r
-R&gt; #html_elements(parsed_doc, xpath = "//div[starts-with(./@id, 'R')]")
+R&gt; world_equidistant &lt;- world %&gt;% 
++   st_set_crs(4087)
 ```
+
+```
+## Warning: st_crs&lt;- : replacing crs does not reproject data; use st_transform for
+## that
+```
+
+
 
 
 

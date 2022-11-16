@@ -1,7 +1,7 @@
 ---
 title: "Coordinated Reference Systems with sf"
 author: "Juan Brasdefer & Benedikt Korbach"
-date: ' November 21st 2022'
+date: 'November 21st 2022'
 output:
   html_document:
     toc: yes
@@ -40,7 +40,7 @@ In this exercise, you will
 # Understanding CRS 🌎
 
 ## Exercise 1: Measuring the world
-**After listening to the presentation, talk to your neighbor, briefly define the purpose of a CRS and discuss why it is important when dealing with spatial data.**
+**After listening to the presentation, briefly talk to your neighbor... define the purpose of a CRS and discuss why it is important when dealing with spatial data.**
 
 ---
 
@@ -65,12 +65,12 @@ Let's take a first look at the class of the `german_districts` object.
 class(german_districts)
 ```
 
-The `german_districts` data set is saved as an `sf` object which at the same time is a data frame. That's great! As a consequence, we can effortlessly use tidyverse methods to wrangle our data.
+The `german_districts` data set is saved as an `sf` object which at the same time is a data frame. That's great! Thanks to this, we can effortlessly use tidyverse methods to wrangle our data.
 
 Let's make use of this fact in the first exercise!
 
 ## Exercise 2: Understanding sf objects
-**Use the dplyr::select() function to select the district column of the data frame and report the first five observations using the dplyr::head() and the print() function. What kind of information does the output contain? Does the output differ from what you expected?** 
+**Use the dplyr::select() function to select the 'district' column of the data frame and report the first five observations using the dplyr::head() and the print() function. What kind of information does the output contain? Does the output differ from what you expected?** 
 
 ```{r}
 german_districts %>% 
@@ -91,7 +91,7 @@ To retrieve even more information about the CRS of our data, we can use the `st_
 ```{r}
 st_crs(german_districts)
 ```
-As we can see in the output, we receive all relevant information about the CRS in the form of Well-Known-Text (WKT), such as the projected CRS, the ellipsoid used to model the surface of the earth or the area where the CRS should be used.
+As we can see in the output, we receive all relevant information about the CRS in the form of Well-Known-Text (WKT), such as the projected CRS, the ellipsoid used to model the surface of the earth, or the area where the CRS should be used.
 
 We can also filter out the relevant CRS information in the different formats discussed in the presentation (EPSG and Proj4):
 
@@ -172,7 +172,7 @@ german_districts %>%
 ```
 Berlin has an area of 893 square kilometers.
 
-Similar to the calculation of area, there are other functions in the `sf` package that you can use to do computations with simple features such as `st_length()`or `st_area()`.
+Similar to the calculation of area, there are other functions in the `sf` package that you can use to do computations with simple features such as `st_length()`or `st_distance()`.
 
 ---
 
@@ -198,7 +198,7 @@ Now, let's use this information and exploit one of the most powerful techniques 
 
 # Creating illustrative maps 🗺️
 
-An easy way to graph maps is the `plot()` command that create a set of default maps corresponding to the attributes of our `sf` object. Let's plot the first three attributes:
+An easy way to graph maps is the included `plot()` command that create a set of default maps corresponding to the attributes of our `sf` object. Let's plot the first three attributes:
 
 ```{r}
 plot(german_districts, max.plot = 3)

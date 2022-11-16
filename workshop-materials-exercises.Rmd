@@ -24,6 +24,7 @@ library(devtools)
 library(emoji)
 ```
 
+
 *** 
 Hello and welcome to our hands-on workshop session 👋,
 
