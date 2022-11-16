@@ -229,10 +229,6 @@ R&gt; st_crs(world)
 ```
 ]
 
-
-
-
-
 ---
 class: inverse, center, middle
 name: section1
@@ -240,10 +236,6 @@ name: section1
 # 2: The 'Simple Features' Package
 
 &lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px style="width:1000px; margin:auto;"/&gt;&lt;/html&gt;
-
-
-
-
 
 ---
 # 2.1 'Simple Features' Overview
@@ -272,16 +264,10 @@ name: section1
 
 ]
 
-
-
 ---
 # 2.2 sf Geometry Visualization
 
-
-
 &lt;img src="pics/geometrytypes.png" width="800px" height="500px" style = "position:absolute; left:200px; top:100px;"  &gt;
-
-
 
 ---
 # 2.3 The Simple Features Object in R
@@ -291,13 +277,35 @@ name: section1
 3. Each feature **'Geometry'** is saved **as a list** element (sfg object)
 3. The **'Geometries'** are put in a list-column called `geometry` or `geom` (sfc object)
 
-
-
 &lt;img src="pics/sftibble.png" width="800px" height="350px" style = "position:absolute; left:50px; bottom:20px;"  &gt;
 
+---
+# 3.1 Working with CRS
 
+###sf object output
 
+```r
+R&gt; world %&gt;% 
++   select(iso_a2, name_long, continent, subregion, area_km2) %&gt;% 
++   head(5)
+```
 
+```
+## Simple feature collection with 5 features and 5 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -180 ymin: -18.28799 xmax: 180 ymax: 83.23324
+## Geodetic CRS:  WGS 84
+## # A tibble: 5 × 6
+##   iso_a2 name_long      continent     subreg…¹ area_…²                      geom
+##   &lt;chr&gt;  &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;      &lt;dbl&gt;        &lt;MULTIPOLYGON [°]&gt;
+## 1 FJ     Fiji           Oceania       Melanes…  1.93e4 (((-180 -16.55522, -179.…
+## 2 TZ     Tanzania       Africa        Eastern…  9.33e5 (((33.90371 -0.95, 31.86…
+## 3 EH     Western Sahara Africa        Norther…  9.63e4 (((-8.66559 27.65643, -8…
+## 4 CA     Canada         North America Norther…  1.00e7 (((-132.71 54.04001, -13…
+## 5 US     United States  North America Norther…  9.51e6 (((-171.7317 63.78252, -…
+## # … with abbreviated variable names ¹​subregion, ²​area_km2
+```
 
 
 

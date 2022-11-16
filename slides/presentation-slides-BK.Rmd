@@ -215,10 +215,6 @@ st_crs(world)
 ```
 ]
 
-
-
-
-
 ---
 class: inverse, center, middle
 name: section1
@@ -226,10 +222,6 @@ name: section1
 # 2: The 'Simple Features' Package
 
 <html><div style='float:left'></div><hr color='#EB811B' size=1px style="width:1000px; margin:auto;"/></html>
-
-
-
-
 
 ---
 # 2.1 'Simple Features' Overview
@@ -258,16 +250,10 @@ name: section1
 
 ]
 
-
-
 ---
 # 2.2 sf Geometry Visualization
 
-
-
 <img src="pics/geometrytypes.png" width="800px" height="500px" style = "position:absolute; left:200px; top:100px;"  >
-
-
 
 ---
 # 2.3 The Simple Features Object in R
@@ -277,31 +263,40 @@ name: section1
 3. Each feature **'Geometry'** is saved **as a list** element (sfg object)
 3. The **'Geometries'** are put in a list-column called `geometry` or `geom` (sfc object)
 
-
-
 <img src="pics/sftibble.png" width="800px" height="350px" style = "position:absolute; left:50px; bottom:20px;"  >
 
+---
+# 3.1 Working with CRS
 
-
-
-
-
+###sf object outbout
+```{r}
+world %>% 
+  select(iso_a2, name_long, continent, subregion, area_km2) %>% 
+  head(5)
+```
 
 ---
-# Grammar of XPath
+# 3.1 Working with CRS
 
-### Navigational operators `"."`and `".."`
+###Retrieving and Setting the CRS
 
-- `"."` accesses elements on the same level ("self axis"), which is useful when working with predicates (see later!).
-- `".."` accesses elements at a higher hierarchical level.
-
-```{r, eval = TRUE, message= FALSE}
-#html_elements(parsed_doc, xpath = "//title/..")
+```{r}
+st_crs(world)
+```
+```{r}
+world_equidistant <- world %>% 
+  st_set_crs(4087)
+```
+```{r}
+st_crs(world_equidistant)
 ```
 
-```{r, eval = TRUE, message= FALSE}
-#html_elements(parsed_doc, xpath = "//div[starts-with(./@id, 'R')]")
+```{r}
+world_equidistant <- world %>% 
+  st_set_crs(4087)
 ```
+
+
 
 
 
