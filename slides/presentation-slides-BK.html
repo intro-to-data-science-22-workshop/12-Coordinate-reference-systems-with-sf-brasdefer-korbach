@@ -85,9 +85,9 @@ class: center, middle, inverse, title-slide
 
 ##3: Functions, Operations
 
-3.1 [Key Functions](#)
+3.1 [Working with CRS](#)
 
-3.2 [Operations](#)
+3.2 [Computations with sf](#)
 
 3.3 [Applications 1](#dataframes)
 ]
@@ -131,19 +131,6 @@ name: section1
 
 
 ]
-
----
-class: inverse, center, middle
-name: goal
-
-
-#Goal: Ability to measure distance between any two points in the world
-
-
-
-
-
-
 ---
 # 1.2 How to Measure the World?
 
@@ -164,7 +151,6 @@ name: goal
 | Model | Ellipsoidal (datums: geocentric or local) | Cartesian plane (map projections from GCS into 2D) |
 | Coordinates | Longitude (East-West) and Latitude (North-South) | Easting and Northing |
 | Units | Degrees | Linear unit (e.g. metres) |
-| Common example | WGS 84 | NAD83 |
 
 ###Projected Coordinate Systems
 - Based on a geographic CRS and **projects a 3D surface** onto a flat surface
@@ -239,17 +225,9 @@ name: section1
 
 ---
 # 2.1 'Simple Features' Overview
-&lt;br&gt;
 
+### The sf package
 .pull-left[
-
-&lt;img src="pics/sflogo.png" width="400px" height="400px" style = "position:absolute; left:90px; top:190px;" &gt;
-
-]
-
---
-
-.pull-right[
 **Simple Features** is a formal standard that **describes how 'features' can be represented in computers and stored in databases**
 
 
@@ -263,6 +241,13 @@ name: section1
 - Population, Height, Colour, Temperature
 
 ]
+
+.pull-right[
+
+&lt;img src="pics/sflogo.png" width="300px" height="300px" style = "position:absolute; right:150px; top:190px;" &gt;
+
+]
+
 
 ---
 # 2.2 sf Geometry Visualization
@@ -280,9 +265,13 @@ name: section1
 &lt;img src="pics/sftibble.png" width="800px" height="350px" style = "position:absolute; left:50px; bottom:20px;"  &gt;
 
 ---
-# 3.1 Working with CRS
+# 3.1 Working with CRS 
 
+<<<<<<< Updated upstream
 ###sf object outbout
+=======
+###1: sf object output
+>>>>>>> Stashed changes
 
 ```r
 R&gt; world %&gt;% 
@@ -308,6 +297,7 @@ R&gt; world %&gt;%
 ```
 
 ---
+<<<<<<< Updated upstream
 # 3.1 Working with CRS
 
 ###Retrieving and Setting the CRS
@@ -345,6 +335,14 @@ R&gt; st_crs(world)
 R&gt; world_equidistant &lt;- world %&gt;% 
 +   st_set_crs(4087)
 ```
+=======
+# 3.1 Working with CRS (Cont'd)
+
+###2: Retrieving the CRS
+
+.pull-left[
+**Well-Known_Text (WKT)**
+>>>>>>> Stashed changes
 
 ```
 ## Warning: st_crs&lt;- : replacing crs does not reproject data; use st_transform for
@@ -352,6 +350,7 @@ R&gt; world_equidistant &lt;- world %&gt;%
 ```
 
 ```r
+<<<<<<< Updated upstream
 R&gt; st_crs(world_equidistant)
 ```
 
@@ -410,6 +409,33 @@ R&gt; world_equidistant &lt;- world %&gt;%
 +   st_set_crs(4087)
 ```
 
+=======
+R&gt; st_crs(world)
+```
+
+```
+## Coordinate Reference System:
+##   User input: EPSG:4326 
+##   wkt:
+## GEOGCRS["WGS 84",
+##     DATUM["World Geodetic System 1984",
+##         ELLIPSOID["WGS 84",6378137,298.257223563,
+##             LENGTHUNIT["metre",1]]],
+##     PRIMEM["Greenwich",0,
+##         ANGLEUNIT["degree",0.0174532925199433]],
+##     CS[ellipsoidal,2],
+##         AXIS["geodetic latitude (Lat)",north,
+##             ORDER[1],
+##             ANGLEUNIT["degree",0.0174532925199433]],
+##         AXIS["geodetic longitude (Lon)",east,
+##             ORDER[2],
+##             ANGLEUNIT["degree",0.0174532925199433]],
+##     USAGE[
+##         SCOPE["Horizontal component of 3D system."],
+##         AREA["World."],
+##         BBOX[-90,-180,90,180]],
+##     ID["EPSG",4326]]
+>>>>>>> Stashed changes
 ```
 ## Warning: st_crs&lt;- : replacing crs does not reproject data; use st_transform for
 ## that
@@ -417,253 +443,148 @@ R&gt; world_equidistant &lt;- world %&gt;%
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
----
-# Content extraction 
-
-- Until now, we used XPath expressions to extract complete nodes or nodesets (that is, elements with tags).
-- However, in most cases we're interested in extracting the content only.
-- To that end, we can use extractor functions that are applied on the output of XPath query calls.
-
-| Function  |  Argument | Return value |
-|---|---|---|
-| `html_text()` |  | Element value |
-| `html_text2()` |  | Element value (with a bit more cleanup) |
-| `html_attr()` | `name` | Element attribute |
-| `html_attrs()` |  | (All) element attributes |
-| `html_name()` | `trim` | Element name |
-| `html_children()` |  | Element children |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----
-# More XPath?
-
-### Training resources
-
-- XPath is a little language of its own. As always with languages, mastery comes with practice.
-- A good environment for practice is the [XPath expression testbed at whitebeam.org](http://www.whitebeam.org/library/guide/TechNotes/xpathtestbed.rhtm).
-- Also check out this [cheat sheet](https://devhints.io/xpath).
-
-### XPath creator tools
-
-- Now, do you really have to construct XPath expressions by your own? No! At least not always.
-- **SelectorGadget**: [http://selectorgadget.com](http://selectorgadget.com) is a browser plugin that constructs XPath statements via a point-and-click approach. The generated expressions are not always efficient and effective though (more on this later).
-- Web developer tools - the internal browser functionality to study the DOM, among other things, also lets you extract XPath statements for selected nodes. These are specific to unique nodes/elements though, and therefore less helpful to extract node sets. (But they come in handy when we want to script live navigation, e.g. for Selenium.)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----
-# What is CSS?
-
-.pull-left[
-### Background
-
-- **C**ascading **S**tyle **S**heets (CSS) is a style sheet language that allows web developers to adjust the "look and feel" of websites.
-- By using CSS to adjust style features such as layout, colors, and fonts, it's easier to separate content (HTML) from presentation (CSS).
-
-### Three ways to insert CSS into HTML
-
-1. **External CSS.** Inside `&lt;head&gt;` with a reference to the external file inside the `&lt;link&gt;` element.
-2. **Internal CSS.** Inside `&lt;head&gt;` and stored in `&lt;style&gt;` elements. 
-3. **Inline CSS.** Inside `&lt;body&gt;` using the `style` attribute of elements.
-  
 ]
-
---
 
 .pull-right[
-**External CSS**
+**EPSG**
 
-```html
-&lt;head&gt;
-  &lt;link rel="stylesheet" href="mystyle.css"&gt;
-&lt;/head&gt;
+```r
+R&gt; st_crs(world)$srid
 ```
 
-**Internal CSS**
-
-```html
-&lt;head&gt;
-   &lt;style&gt;
-      h1 {
-         color: red;
-         margin-left: 20px;
-      }
-   &lt;/style&gt;
-&lt;/head&gt;
+```
+## [1] "EPSG:4326"
 ```
 
-**Inline CSS**
+**Proj4**
 
-```html
-&lt;p style="color: blue;"&gt;This is a paragraph.&lt;/p&gt;
+```r
+R&gt; st_crs(world)$proj4string
+```
+
+```
+## [1] "+proj=longlat +datum=WGS84 +no_defs"
 ```
 ]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ---
-class: inverse, center, middle
-name: regex
-
-# Regular expressions
-
-&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px style="width:1000px; margin:auto;"/&gt;&lt;/html&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----
-# What are regular expressions?
+# 3.1 Working with CRS (Cont'd)
 
 .pull-left[
-### Definition
+###3: Changing the CRS
 
-Regular expressions a.k.a. *regex* or *RegExp* is a tool - a little language of it's own really - that lets you describe patterns in text/strings.
+```r
+R&gt; world_mercator &lt;- world %&gt;% 
++   st_set_crs(3857)
+R&gt; 
+R&gt; st_crs(world_mercator)$srid
+```
 
-Funnily, a regular expression itself is a sequence of characters, some with special, some with literal meaning.
-
-Regular expressions are widely applicable and implemented in many programming languages, including R, as well as search engines, search and replace dialogs, etc.
-
-&lt;div align="center"&gt;
-&lt;img src="pics/character-string.png" height=100&gt;
-&lt;/div&gt;
+```
+## [1] "EPSG:3857"
+```
 ]
-
---
 
 .pull-right[
-### Why is this useful for web scraping?
-
-Information on the web can often be described by patterns (think email addresses, numbers, cells in HTML tables, ...).
-
-If the data of interest follow specific patterns, we can match and extract them - regardless of page layout and HTML overhead.
-
-Whenever the information of interest is (stored in) text, regular expressions are useful for extraction and tidying purposes.
+###WGS84 Pseudo Mercator
+&lt;img src="presentation-slides-BK_files/figure-html/unnamed-chunk-8-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 ]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ---
-# Backreferencing *cont.* 
+# 3.1 Working with CRS (Cont'd)
 
-**Goal:** Match a word that does not include  "a" until the word appears the second time.
+.pull-left[
+###Original CRS
 
-**Solution:**
+```r
+R&gt; st_crs(world)$srid
+```
+
+```
+## [1] "EPSG:4326"
+```
+]
+
+.pull-right[
+###WGS84 - World Geodetic System 1984, used in GPS
+&lt;img src="presentation-slides-BK_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# 3.2 Computations with sf
+
+.pull-left[
+### Area
+
+By using the `st_area()` function, we can calculate the area of a country directly from the sf and the specified CRS. 
 
 
 ```r
-R&gt; #str_extract(example.obj, "([ [:punct:]][b-z]+[ [:punct:]]).+?\\1")
+R&gt; germany_area &lt;- world %&gt;%
++   filter(iso_a2 == "DE") %&gt;% 
++   st_area() %&gt;% 
++   units::set_units(km^2)
 ```
 
-**How it works:**
 
-- Match all letters without a, therefore: `[b-z]`
-- Match complete words with beginning/end: `[ [:punct:]]`
-- Define first word pattern* `(...)`
-- Match anything between occurrences of both words: `.+?`
-- Refer to original word `\\1`
+```r
+R&gt; print(germany_area)
+```
 
+```
+## 356134.4 [km^2]
+```
 
+]
 
+.pull-right[
+### Distance
 
+The `sf_distance()`function lets us calculate the distance between two features. In this example, we determine the distance between the center of Germany and Australia by using the `st_centroid()` function.
 
+```r
+R&gt; de &lt;- world %&gt;% 
++   filter(iso_a2 == "DE") %&gt;% 
++   st_centroid()
+R&gt; 
+R&gt; au &lt;- world %&gt;% 
++   filter(iso_a2 == "AU") %&gt;% 
++   st_centroid()
+R&gt; 
+R&gt; print(set_units((st_distance(de, au)), km))
+```
 
+```
+## Units: [km]
+##          [,1]
+## [1,] 14556.93
+```
+]
 
+---
+# 3.3 Map-Making
 
+### Plot() function
+
+```r
+R&gt; plot(world['continent'])
+```
+
+&lt;img src="presentation-slides-BK_files/figure-html/unnamed-chunk-14-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# 3.3 Map-Making
+
+### Plot() function
+
+```r
+R&gt; world_select &lt;- world %&gt;% select(iso_a2, continent, pop, lifeExp)
+R&gt; 
+R&gt; plot(world_select)
+```
+
+&lt;img src="presentation-slides-BK_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
 
 
 
