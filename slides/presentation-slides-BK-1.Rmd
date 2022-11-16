@@ -390,7 +390,7 @@ print(germany_area)
 .pull-right[
 **Distance**
 
-The `sf_distance()` function lets us calculate the distance between two features. In this example, we determine the distance between the center of Germany and the center of Australia by using the `st_centroid()` function.
+The `st_distance()` function lets us calculate the distance between two features. In this example, we determine the distance between the center of Germany and the center of Australia by using the `st_centroid()` function.
 ```{r}
 de <- world %>% 
   filter(iso_a2 == "DE") %>% st_centroid()
@@ -466,7 +466,7 @@ name: section1
 
 # 4: Exercise Session
 
-Thank you so much for listening! If you want to dive deeper into the sf package and Coordinate Reference Systems, please have a look at the linked sources on our Github repository [Github repository](https://github.com/intro-to-data-science-22-workshop/12-Coordinate-reference-systems-with-sf-brasdefer-korbach/tree/main/slides).
+Thank you so much for listening! If you want to dive deeper into the sf package and Coordinate Reference Systems, please have a look at the linked sources on our [Github repository](https://github.com/intro-to-data-science-22-workshop/12-Coordinate-reference-systems-with-sf-brasdefer-korbach/tree/main/slides).
 
 <html><div style='float:left'></div><hr color='#EB811B' size=1px style="width:1000px; margin:auto;"/></html>
 
