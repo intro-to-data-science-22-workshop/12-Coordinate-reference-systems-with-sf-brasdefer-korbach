@@ -38,8 +38,8 @@ The material in this repository is made available under the [MIT license](http:/
 
 ## Statement of contributions
 
-**Juan Brasdefer** prepared the presentation outline and built the presentation slides using the xaringan package.
+**Juan Brasdefer** prepared content for the presentation and structured the outline of the presentation.
 
-**Benedikt Korbach** researched and provided the content of the presentation, created the practice material and wrote the GitHub repo description.
+**Benedikt Korbach** researched and provided content of the presentation and created the practice material.
 
-The video was recorded jointly.
+Both of us built the presentation using the xaringan package in a shared effort. The video was recorded jointly.
